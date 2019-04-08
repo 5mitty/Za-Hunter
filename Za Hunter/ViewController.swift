@@ -69,5 +69,19 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = locations[0]
     }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation.isEqual(mapView.userLocation) {
+            return nil
+        }
+        let pin = MKAnnotationView(annotation: annotation, reuseIdentifier: nil)
+        pin.image = UIImage(named: "Pizza")
+        pin.canShowCallout = true
+        let button = UIButton(type: .detailDisclosure)
+        pin.rightCalloutAccessoryView = button
+        let secondButton = UIButton(type: .contactAdd)
+        pin.leftCalloutAccessoryView = secondButton
+        return pin
+    }
 }
 
